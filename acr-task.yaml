@@ -1,0 +1,15 @@
+version: v1.1.0
+steps:
+# Build target image
+- build: -t {{.Run.Registry}}/ltitooltestwebapp:{{.Run.ID}} -f Dockerfile .
+- build: -t {{.Run.Registry}}/ltitooltestwebapp:{{.Run.ID}} -t {{.Run.Registry}}/ltitooltestwebapp:latest -f Dockerfile .
+
+
+# Push image
+- push:
+  - {{.Run.Registry}}/ltitooltestwebapp:{{.Run.ID}}
+  - {{.Run.Registry}}/ltitooltestwebapp:latest
+trigger:
+  branches:
+    include:
+      - main
